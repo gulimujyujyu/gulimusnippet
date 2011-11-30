@@ -41,13 +41,17 @@ def process_url(url,param,debug=False):
 	soup = BeautifulSoup(content)
 	tmp = soup.findAll(name='a')
 	
-	target_regexp = '^\s+%d&times;%d+\s+$' % (param['width'],param['height'])
+	target_regexp = '^\s*%d&times;%d+\s*$' % (param['width'],param['height'])
 	print target_regexp
 	if not os.path.exists(month_names[param['month']-1]):
 		os.mkdir(month_names[param['month']-1])
 	
 	for one_a in tmp:
-		if re.match(target_regexp,one_a.contents[0]) and one_a['href']:
+		if len(one_a.contents) < 1:
+			continue
+		immediate_child = str(one_a.contents[0])
+		#print immediate_child
+		if re.match(target_regexp,immediate_child) and one_a['href']:
 			filename = one_a['href'].split('/')[-1]
 			print 'Downloading %s' % filename
 			time.sleep(3)
