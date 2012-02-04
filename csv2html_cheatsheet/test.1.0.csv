@@ -1,0 +1,3 @@
+Command,Description,Example,Meaning
+-h,help information,vim -h,call usage of vim
+-i,input,vim -I lala.txt,use lala.txt as input file
